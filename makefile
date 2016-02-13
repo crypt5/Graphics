@@ -12,7 +12,7 @@ GRAPHICS_INC=-Isrc/headers/ -Ilib/util/Data_Structures/
 
 XFLAGS=`pkg-config --libs x11`
 
-all: graphics main
+all: graphics
 
 #Build Test code
 main: test/test.c
