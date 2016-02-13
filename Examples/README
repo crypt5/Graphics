@@ -1,0 +1,5 @@
+Before attempting to compile any example please ensure
+you have compiled and installed the library using the
+main makefile, to do this run the command:
+"sudo make install clean" from the directory you cloned
+the repo from. 
