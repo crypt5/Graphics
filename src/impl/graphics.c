@@ -111,7 +111,7 @@ void* event_loop(void* data)
 	  if(win==g->mainWindow)
 	    clicked=get_at_coords(g->widgets,e.xbutton.x, e.xbutton.y);
 	  else{
-	    win_data=list_get(g->windows,&win); 
+	    win_data=list_get(g->windows,window_comp,&win); 
 	    if(win_data!=NULL)
 	      clicked=get_at_coords(win_data->widgets,e.xbutton.x, e.xbutton.y);
 	  }
@@ -142,7 +142,7 @@ void* event_loop(void* data)
 	  if(win==g->mainWindow)
 	    clicked=get_at_coords(g->widgets,e.xbutton.x, e.xbutton.y);
 	  else{
-	    win_data=list_get(g->windows,&win); 
+	    win_data=list_get(g->windows,window_comp,&win); 
 	    if(win_data!=NULL)
 	      clicked=get_at_coords(win_data->widgets,e.xbutton.x, e.xbutton.y);
 	  }
@@ -190,7 +190,7 @@ void* event_loop(void* data)
 	  }
 	}
 	else{
-	  win_data=list_get(g->windows,&win); 
+	  win_data=list_get(g->windows,window_comp,&win); 
 	  if(win_data!=NULL){
 	    sorted_list_walk_reset(win_data->widgets);
 	    while((temp=(WIDGET*)sorted_list_get_next(win_data->widgets))!=NULL){
@@ -266,7 +266,7 @@ GUI* init_gui(char* address)
 
   g->widgets=sorted_list_init(fake_free,widget_compare);
   g->updates=init_queue(fake_free);
-  g->windows=list_init(fake_free,window_comp);
+  g->windows=list_init(fake_free);
 
   g->font=XLoadQueryFont(g->dsp,"*9x15*");
   return g;
@@ -586,6 +586,6 @@ void unregister_window(GUI* g, WINDOW* w)
     exit(-1);
   }
   pthread_mutex_lock(&g->lock);
-  list_delete(g->windows,&w->w);
+  list_delete(g->windows,window_comp,&w->w);
   pthread_mutex_unlock(&g->lock);
 }
